@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="only light">
+<title>Naif Alkhamis — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+  /* Deliberately single-theme: always light, whatever the viewer's OS/app theme. */
+  :root, :root[data-theme="dark"], :root[data-theme="light"] {
+    color-scheme: only light;
+    --bg: #ffffff;
+    --panel: #fbfcfe;
+    --panel-2: #f3f6fb;
+    --line: #e9edf5;
+    --ink: #101a2e;
+    --ink-2: #48536e;
+    --ink-3: #8b94ab;
+    --brand: #5b5bee;
+    --brand-2: #0ea5e9;
+    --brand-ink: #4646d8;
+    --brand-soft: #eef0ff;
+    --grad: linear-gradient(92deg, #5b5bee, #0ea5e9);
+    --good: #16a34a;
+    --warn: #b45309;
+    --crit: #dc2626;
+    --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300;
+    --shadow: 0 1px 2px rgba(16,26,46,.04), 0 18px 50px -34px rgba(16,26,46,.18);
+    --glow: 0 4px 14px rgba(91,91,238,.10), 0 28px 60px -28px rgba(91,91,238,.32);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Manrope", "Segoe UI", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.6;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+  .veil { position: fixed; inset: 0; z-index: -1; background: radial-gradient(1200px 600px at 50% -100px, transparent, var(--bg) 62%), linear-gradient(rgba(255,255,255,.86), rgba(255,255,255,.86)); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px 110px; }
+  a { color: var(--brand-ink); text-decoration: none; }
+  a:hover, a:focus-visible { text-decoration: underline; }
+  :focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 3px; }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } }
+
+  /* ---------- progress + nav ---------- */
+  #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--grad); z-index: 60; border-radius: 0 3px 3px 0; }
+  nav.top { position: sticky; top: 14px; z-index: 50; display: flex; justify-content: center; padding: 0 16px; }
+  nav.top .in {
+    display: flex; align-items: center; gap: 4px; padding: 7px 10px; border-radius: 999px;
+    background: rgba(255,255,255,.75); backdrop-filter: blur(14px);
+    border: 1px solid var(--line); box-shadow: var(--shadow); overflow-x: auto; max-width: 100%;
+  }
+  nav.top .brand { font-family: "Sora", sans-serif; font-weight: 800; font-size: 13.5px; padding: 5px 12px; white-space: nowrap; background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  nav.top a.lnk { position: relative; font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-2); white-space: nowrap; padding: 6px 11px; border-radius: 999px; transition: color .2s, background .2s; }
+  nav.top a.lnk:hover { color: var(--brand-ink); background: var(--brand-soft); text-decoration: none; }
+
+  /* ---------- hero ---------- */
+  header.hero { position: relative; text-align: center; padding: 92px 0 56px; }
+  .orbs { position: absolute; inset: -120px 0 0; pointer-events: none; overflow: visible; }
+  .orb { position: absolute; border-radius: 50%; filter: blur(90px); will-change: transform; }
+  .orb.a { width: 520px; height: 520px; left: calc(50% - 560px); top: -80px; background: radial-gradient(circle, #5b5bee, transparent 66%); opacity: .20; animation: float-a 17s ease-in-out infinite alternate; }
+  .orb.b { width: 460px; height: 460px; right: calc(50% - 560px); top: -40px; background: radial-gradient(circle, #0ea5e9, transparent 66%); opacity: .17; animation: float-b 21s ease-in-out infinite alternate; }
+  .orb.c { width: 320px; height: 320px; left: calc(50% - 160px); top: 190px; background: radial-gradient(circle, #7c6ff0, transparent 66%); opacity: .12; animation: float-c 14s ease-in-out infinite alternate; }
+  @keyframes float-a { from { transform: translate(0,0) scale(1); } to { transform: translate(90px,60px) scale(1.12); } }
+  @keyframes float-b { from { transform: translate(0,0) scale(1.08); } to { transform: translate(-80px,70px) scale(.94); } }
+  @keyframes float-c { from { transform: translate(0,0); } to { transform: translate(40px,-50px); } }
+  .hero > *:not(.orbs) { position: relative; z-index: 1; }
+  .hero .kicker {
+    display: inline-flex; align-items: center; gap: 8px; margin-bottom: 26px;
+    font-family: "JetBrains Mono", monospace; font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--brand-ink); background: rgba(255,255,255,.7); border: 1px solid var(--line);
+    padding: 7px 16px; border-radius: 999px; backdrop-filter: blur(8px);
+  }
+  .hero .kicker::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--grad); animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: .55; } }
+  h1 {
+    font-family: "Sora", sans-serif; font-weight: 800;
+    font-size: clamp(42px, 6.6vw, 78px); line-height: 1.04; margin: 0 0 10px;
+    letter-spacing: -.028em; text-wrap: balance;
+  }
+  .hero h1 .grad {
+    background: linear-gradient(92deg, #5b5bee, #0ea5e9, #5b5bee); background-size: 200% 100%;
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    animation: shimmer 7s ease infinite;
+  }
+  @keyframes shimmer { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+  .hero .sub { font-family: "Sora", sans-serif; font-weight: 600; font-size: clamp(17px, 2.2vw, 22px); color: var(--ink-2); margin: 6px 0 26px; letter-spacing: -.01em; }
+  .hero .thesis { max-width: 74ch; margin: 0 auto 26px; color: var(--ink-2); font-size: 16.5px; }
+  .hero .thesis b { color: var(--ink); }
+  .idrow { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 26px; font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--ink-3); }
+
+  .hero > * { animation: up .8s cubic-bezier(.16,.8,.24,1) both; }
+  .hero > *:nth-child(3) { animation-delay: .08s; } .hero > *:nth-child(4) { animation-delay: .15s; }
+  .hero > *:nth-child(5) { animation-delay: .22s; } .hero > *:nth-child(6) { animation-delay: .30s; }
+  .hero > *:nth-child(7) { animation-delay: .40s; } .hero > *:nth-child(8) { animation-delay: .50s; }
+  @keyframes up { from { opacity: 0; transform: translateY(26px); filter: blur(6px); } to { opacity: 1; transform: none; filter: blur(0); } }
+
+  /* ---------- stat band ---------- */
+  .tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin: 44px auto 0; text-align: left; }
+  @media (max-width: 980px) { .tiles { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .tiles { grid-template-columns: 1fr; } }
+  .card {
+    background: linear-gradient(var(--panel), var(--panel)) padding-box, var(--line) border-box;
+    border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow);
+    transition: transform .35s cubic-bezier(.16,.8,.24,1), box-shadow .35s, border-color .35s, background .35s;
+  }
+  @media (hover: hover) {
+    .card:hover {
+      transform: translateY(-4px); box-shadow: var(--glow); border-color: transparent;
+      background: linear-gradient(var(--panel), var(--panel)) padding-box, var(--grad) border-box;
+    }
+  }
+  .tile { padding: 20px 20px 17px; }
+  .tile .n {
+    font-family: "Sora", sans-serif; font-weight: 800; font-size: 38px; line-height: 1;
+    letter-spacing: -.02em; font-variant-numeric: tabular-nums;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .tile .n small { font-size: 19px; }
+  .tile .l { font-size: 12.5px; color: var(--ink-2); margin-top: 8px; line-height: 1.45; }
+
+  /* ---------- four hats ---------- */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 16px; text-align: left; }
+  @media (max-width: 980px) { .steps { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 620px) { .steps { grid-template-columns: 1fr; } }
+  .step { padding: 20px; }
+  .step .glyph {
+    width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+    background: var(--grad); color: #fff; font-family: "Sora", sans-serif; font-weight: 700; font-size: 15px;
+    margin-bottom: 12px;
+  }
+  .step .k { font-family: "JetBrains Mono", monospace; font-size: 10.5px; letter-spacing: .13em; color: var(--brand-ink); font-weight: 600; text-transform: uppercase; }
+  .step h3 { margin: 5px 0 6px; }
+  .step p { margin: 0; font-size: 13.5px; color: var(--ink-2); }
+
+  /* ---------- sections ---------- */
+  section { margin-top: 96px; scroll-margin-top: 84px; }
+  .seclabel {
+    display: inline-block; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--brand-ink);
+    letter-spacing: .14em; text-transform: uppercase; font-weight: 600;
+    padding: 5px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel);
+  }
+  h2 { font-family: "Sora", sans-serif; font-weight: 800; font-size: clamp(27px, 3.6vw, 40px); margin: 14px 0 10px; letter-spacing: -.025em; text-wrap: balance; }
+  h2 .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .secintro { color: var(--ink-2); max-width: 70ch; margin: 0 0 30px; }
+  h3 { font-family: "Sora", sans-serif; font-weight: 700; font-size: 17.5px; margin: 0 0 4px; letter-spacing: -.01em; }
+
+  .rv { opacity: 0; transform: translateY(26px); filter: blur(6px); transition: opacity .7s cubic-bezier(.16,.8,.24,1), transform .7s cubic-bezier(.16,.8,.24,1), filter .7s; }
+  .rv.on { opacity: 1; transform: none; filter: blur(0); }
+  .stagger > .rv:nth-child(2) { transition-delay: .09s; }
+  .stagger > .rv:nth-child(3) { transition-delay: .18s; }
+  .stagger > .rv:nth-child(4) { transition-delay: .27s; }
+
+  /* ---------- timeline ---------- */
+  .timeline { position: relative; padding-left: 34px; display: flex; flex-direction: column; gap: 24px; }
+  .timeline::before { content: ""; position: absolute; left: 9px; top: 10px; bottom: 10px; width: 2px; background: linear-gradient(#5b5bee, #0ea5e9, var(--line)); border-radius: 2px; }
+  .phase { position: relative; padding: 24px 26px; }
+  .phase::before {
+    content: ""; position: absolute; left: -31px; top: 30px; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--grad); border: 3px solid var(--bg); box-shadow: 0 0 0 3px rgba(91,91,238,.14);
+  }
+  .phase .when { font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: var(--brand-ink); font-weight: 600; letter-spacing: .09em; text-transform: uppercase; }
+  .phase h3 { font-size: 20px; margin: 7px 0 8px; }
+  .phase p { color: var(--ink-2); font-size: 14.5px; margin: 0 0 10px; max-width: 78ch; }
+  .phase ul { margin: 0; padding-left: 18px; color: var(--ink-2); font-size: 13.5px; }
+  .phase li { margin: 4px 0; }
+  .phase li b { color: var(--ink); font-weight: 700; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .chip { font-family: "JetBrains Mono", monospace; font-size: 10.5px; padding: 4px 11px; border-radius: 999px; background: var(--brand-soft); border: 1px solid transparent; color: var(--brand-ink); }
+
+  /* ---------- case studies ---------- */
+  .case { position: relative; padding: 28px 30px; margin-bottom: 18px; overflow: hidden; }
+  .case .bigno {
+    position: absolute; right: 18px; top: -22px; font-family: "Sora", sans-serif; font-weight: 800; font-size: 130px;
+    line-height: 1; color: transparent; -webkit-text-stroke: 1.5px var(--line); pointer-events: none; user-select: none;
+  }
+  .case .num { font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--brand-ink); font-weight: 600; letter-spacing: .12em; }
+  .case h3 { font-size: 22px; margin: 8px 0 16px; }
+  .sar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 860px) { .sar { grid-template-columns: 1fr; } }
+  .sar .cell .k { font-family: "JetBrains Mono", monospace; font-size: 10.5px; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; margin-bottom: 7px; }
+  .sar .cell p { margin: 0; font-size: 13.8px; color: var(--ink-2); }
+  .sar .cell p b { color: var(--ink); }
+  .case .result { margin-top: 18px; border-left: 3px solid transparent; border-image: var(--grad) 1; background: var(--brand-soft); border-radius: 0 10px 10px 0; padding: 13px 17px; font-size: 14.5px; color: var(--ink); }
+  .case .result b { background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+  /* ---------- craft ---------- */
+  .craftgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  @media (max-width: 880px) { .craftgrid { grid-template-columns: 1fr; } }
+  .craft { padding: 22px; }
+  .craft .tag { font-family: "JetBrains Mono", monospace; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--brand-ink); font-weight: 600; }
+  .craft h3 { margin: 7px 0 10px; }
+  .craft p.exp { font-size: 13.5px; color: var(--ink-2); margin: 0 0 14px; }
+  .ticket { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; font-size: 13px; background: var(--bg); }
+  .ticket .thead { background: var(--panel-2); padding: 11px 15px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .ticket .thead .ttl { font-weight: 700; color: var(--ink); }
+  .ticket .sev { font-family: "JetBrains Mono", monospace; font-size: 10px; padding: 3px 9px; border-radius: 999px; background: #fdeceb; color: var(--crit); border: 1px solid #f6cfcc; white-space: nowrap; }
+  .ticket .tbody { padding: 13px 15px; color: var(--ink-2); }
+  .ticket .tbody .fld { margin-bottom: 10px; }
+  .ticket .tbody .fld:last-child { margin-bottom: 0; }
+  .ticket .fld .k { font-family: "JetBrains Mono", monospace; font-size: 9.5px; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+  .ticket ol { margin: 4px 0 0; padding-left: 20px; }
+  .ticket li { margin: 2px 0; }
+  pre.code {
+    margin: 0; background: #101a2e; border-radius: 12px;
+    padding: 16px 18px; overflow-x: auto; font-family: "JetBrains Mono", monospace; font-size: 12px;
+    line-height: 1.65; color: #dbe3f4; tab-size: 4;
+  }
+  pre.code .c { color: #7d8db0; }
+  pre.code .kw { color: #7dd3fc; font-weight: 600; }
+  pre.code .s { color: #fbbf77; }
+
+  /* ---------- charts ---------- */
+  .panelgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 800px) { .panelgrid { grid-template-columns: 1fr; } }
+  .panel { padding: 20px 20px 16px; }
+  .panel .sub { font-size: 12.5px; color: var(--ink-3); margin: 2px 0 16px; }
+  .cols { display: flex; align-items: flex-end; gap: 5px; height: 170px; }
+  .cols .col { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; cursor: default; }
+  .cols .val { font-family: "JetBrains Mono", monospace; font-size: 9.5px; color: var(--ink-3); text-align: center; margin-bottom: 4px; font-variant-numeric: tabular-nums; }
+  .cols .bar { background: linear-gradient(180deg, #5b5bee, #0ea5e9); border-radius: 5px 5px 2px 2px; min-height: 2px; height: 2px; transition: height 1.1s cubic-bezier(.16,.8,.24,1), opacity .15s; }
+  .panel.on .cols .bar { height: var(--h, 2px); }
+  .cols .col:hover .bar { opacity: .72; }
+  .xlabels { display: flex; gap: 5px; margin-top: 7px; }
+  .xlabels span { flex: 1; text-align: center; font-family: "JetBrains Mono", monospace; font-size: 9.5px; color: var(--ink-3); }
+  .hbars { display: grid; grid-template-columns: max-content 1fr max-content; gap: 9px 12px; align-items: center; }
+  .hbars .hl { font-size: 13px; color: var(--ink-2); font-weight: 600; }
+  .hbars .track { height: 20px; border-radius: 6px; overflow: hidden; background: var(--panel-2); }
+  .hbars .fill { height: 100%; border-radius: 0 6px 6px 0; min-width: 2px; width: 2px; transition: width 1.1s cubic-bezier(.16,.8,.24,1); }
+  .panel.on .hbars .fill { width: var(--w, 2px); }
+  .hbars .hv { font-family: "JetBrains Mono", monospace; font-size: 12.5px; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 600; }
+  .hbars .hv small { color: var(--ink-3); font-size: 10.5px; font-weight: 400; }
+  .legendnote { font-size: 12px; color: var(--ink-3); margin-top: 13px; }
+  #tip { position: fixed; pointer-events: none; z-index: 70; display: none; background: var(--ink); color: #fff; font-family: "JetBrains Mono", monospace; font-size: 11.5px; padding: 6px 10px; border-radius: 8px; white-space: nowrap; box-shadow: var(--shadow); }
+
+  /* ---------- tables ---------- */
+  .tablewrap { overflow-x: auto; border-radius: 18px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th { text-align: left; font-family: "JetBrains Mono", monospace; font-size: 10.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; padding: 14px 16px 9px; border-bottom: 1px solid var(--line); }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-2); }
+  td b { color: var(--ink); }
+  tr:last-child td { border-bottom: none; }
+  .pill { display: inline-block; font-family: "JetBrains Mono", monospace; font-size: 10.5px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink-2); white-space: nowrap; }
+  .pill.done { color: var(--good); background: #eafaf0; border-color: #c9eed7; }
+  .pill.prog { color: var(--warn); background: #fdf4e5; border-color: #f3ddba; }
+  .lvl { font-family: "JetBrains Mono", monospace; font-size: 10.5px; padding: 3px 11px; border-radius: 999px; white-space: nowrap; }
+  .lvl.e { background: var(--grad); color: #fff; }
+  .lvl.p { background: var(--brand-soft); color: var(--brand-ink); }
+  .lvl.g { background: var(--panel-2); color: var(--ink-3); border: 1px dashed var(--line); }
+
+  /* ---------- streams / profile ---------- */
+  .streams { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 800px) { .streams { grid-template-columns: 1fr; } }
+  .stream { padding: 22px; }
+  .stream .tag { font-family: "JetBrains Mono", monospace; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--brand-ink); font-weight: 600; }
+  .stream h3 { margin: 8px 0 8px; }
+  .stream p { font-size: 14px; color: var(--ink-2); margin: 0 0 10px; }
+  .stream ul { margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--ink-2); }
+  .stream li { margin: 3px 0; }
+
+  .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 800px) { .twocol { grid-template-columns: 1fr; } }
+  .plain { padding: 22px; }
+  .plain dl { margin: 0; }
+  .plain dt { font-family: "JetBrains Mono", monospace; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--brand-ink); font-weight: 600; margin-top: 16px; }
+  .plain dt:first-child { margin-top: 0; }
+  .plain dd { margin: 5px 0 0; font-size: 14px; color: var(--ink-2); }
+  .plain dd b { color: var(--ink); font-weight: 700; }
+
+  .note { border: 1px solid var(--line); background: var(--panel); border-radius: 18px; padding: 17px 20px; font-size: 14px; color: var(--ink-2); margin-top: 30px; box-shadow: var(--shadow); }
+  .note b { color: var(--ink); }
+  footer { margin-top: 96px; padding-top: 24px; border-top: 1px solid var(--line); font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: var(--ink-3); line-height: 1.8; text-align: center; }
+  @media print {
+    nav.top, .orbs, #progress { display: none; }
+    .rv { opacity: 1 !important; transform: none !important; filter: none !important; }
+    .cols .bar { height: var(--h, 2px) !important; }
+    .hbars .fill { width: var(--w, 2px) !important; }
+    body { background: #fff; background-image: none; }
+  }
+</style>
+</head>
+<body>
+<div class="veil" aria-hidden="true"></div>
+<div id="progress" aria-hidden="true"></div>
+
+<nav class="top" aria-label="Sections">
+  <div class="in">
+    <span class="brand">Naif Alkhamis</span>
+    <a class="lnk" href="#journey">Journey</a>
+    <a class="lnk" href="#cases">Case studies</a>
+    <a class="lnk" href="#craft">The craft</a>
+    <a class="lnk" href="#ai">AI leverage</a>
+    <a class="lnk" href="#process">Process</a>
+    <a class="lnk" href="#record">Record</a>
+    <a class="lnk" href="#profile">Profile</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="orbs" aria-hidden="true"><span class="orb a"></span><span class="orb b"></span><span class="orb c"></span></div>
+    <div class="kicker">Work Portfolio · Riyadh, Saudi Arabia</div>
+    <h1>Naif Alkhamis</h1>
+    <h1 style="font-size:clamp(26px,3.6vw,44px)"><span class="grad">Analysis, quality, code, delivery — whatever the product needs next.</span></h1>
+    <p class="thesis">Certified health-informatics specialist (SCFHS · SCE) on a national digital-health platform. Hired as an entry-level QA officer; became <b>the person who fills whatever gap stands between a requirement and a release</b> — analyst, tester, builder, or delivery driver. Works at scale with engineers, clinicians, executives, and ministry partners, <b>turning complex systems into ideas each of them can act on</b>. The pattern: <b>a new discipline in weeks, real artifacts to show for it, and a better process left behind.</b></p>
+    <div class="idrow">
+      <span><b><a href="https://www.linkedin.com/in/naif-fahad-alkhamis">linkedin.com/in/naif-fahad-alkhamis</a></b></span>
+      <span>Riyadh, Saudi Arabia</span>
+      <span>B.Sc. Health Informatics, SEU '24</span>
+    </div>
+
+    <div class="tiles">
+      <div class="card tile"><div class="n" data-count="4">4</div><div class="l">disciplines worked in production — QA, business analysis, delivery management, development</div></div>
+      <div class="card tile"><div class="n" data-count="8">8</div><div class="l">team processes designed and adopted — standards, formats, frameworks</div></div>
+      <div class="card tile"><div class="n" data-count="138">138</div><div class="l">defects found, 87% driven to verified closure — the quality anchor</div></div>
+      <div class="card tile"><div class="n"><span data-count="40">40</span><small>+</small></div><div class="l">test suites, 25+ API collections, 10+ UAT &amp; manual documents authored</div></div>
+      <div class="card tile"><div class="n"><span data-count="240">240</span><small>×</small></div><div class="l">faster: department deliverables that took a week now ship in under 10 minutes via self-built AI pipelines</div></div>
+    </div>
+
+    <div class="steps">
+      <div class="card step"><div class="glyph">A</div><div class="k">As analyst</div><h3>Requirements → testable truth</h3><p>Turns business requirement documents into UAT scenarios, acceptance criteria, RBAC models, and user manuals external partners actually use.</p></div>
+      <div class="card step"><div class="glyph">D</div><div class="k">As driver</div><h3>Programmes, not tasks</h3><p>Stands up trackers, executive decks, and reporting cadences — turned ad-hoc security concerns into a managed programme leadership could steer.</p></div>
+      <div class="card step"><div class="glyph">B</div><div class="k">As builder</div><h3>Tools that outlast the sprint</h3><p>Playwright + pytest framework, Python test scripts, localization pipelines, and AI-assisted tooling — built when buying or waiting wasn't an option.</p></div>
+      <div class="card step"><div class="glyph">T</div><div class="k">As translator</div><h3>Complex made actionable</h3><p>Breaks systems down for whoever's in the room: exec decks for leadership, manuals for clients, handbooks for testers, demo guides for partners.</p></div>
+    </div>
+  </header>
+
+  <section id="journey">
+    <span class="seclabel">The journey</span>
+    <h2>Six phases, <span class="grad">six disciplines</span> picked up on the job</h2>
+    <p class="secintro">Hired for one role; delivered in four. Each phase below is a discipline that wasn't in the job description, learned in weeks and backed by dated artifacts — the evidence that skill acquisition isn't a claim here, it's the operating pattern.</p>
+
+    <div class="timeline">
+      <div class="card phase rv">
+        <div class="when">Jan – Aug 2025 · Foundation</div>
+        <h3>Health informatics grad with hospital-floor experience</h3>
+        <p>Graduated in Health Informatics (Saudi Electronic University, 2024) after coursework in chemical engineering. Interned at Security Forces Hospital supporting EMR operations, completed the McKinsey.org Forward Program, then joined the graduate development program at Halal Products Development Company — where he led an AI-chatbot initiative for certification governance and won the CEO's endorsement. Certified along the way: ITIL 4, Agile Testing Foundation, Six Sigma White Belt, AWS Solutions Architect (Tuwaiq Academy).</p>
+        <div class="chips"><span class="chip">EMR / HIS domain</span><span class="chip">McKinsey Forward</span><span class="chip">ITIL 4</span><span class="chip">Agile Testing</span><span class="chip">Six Sigma</span><span class="chip">AWS SAA</span></div>
+      </div>
+
+      <div class="card phase rv">
+        <div class="when">Sep – Dec 2025 · Phase 1</div>
+        <h3>Manual testing at production scale</h3>
+        <p>Joined Obeikan Health as an entry-level QA Officer on a national digital-health platform — and filed 56 bugs in the first full month. Studied for ISTQB in parallel (31 practice papers worked through).</p>
+        <ul>
+          <li><b>Patient mobile-app launch QA:</b> caught a chain of Highest-priority payment defects before release — zero-amount packages, email-validation blocks, failed bookings vanishing from the appointments screen. All verified and closed.</li>
+          <li><b>Test-case libraries from scratch:</b> hospital-system login, nurse flow, patient registration, pharmacy, lab integration, mobile-app pre-production — 40+ structured Excel suites.</li>
+          <li><b>89 bugs reported in the quarter</b> across the hospital system, population-health, and home-healthcare products — the launch-hardening backbone.</li>
+        </ul>
+        <div class="chips"><span class="chip">Jira</span><span class="chip">Exploratory testing</span><span class="chip">Regression</span><span class="chip">Mobile QA (Android/iOS)</span></div>
+      </div>
+
+      <div class="card phase rv">
+        <div class="when">Jan – Feb 2026 · Phase 2</div>
+        <h3>Localization QA and a reporting cadence</h3>
+        <p>Took on Arabic localization for the order-management backend — delivering translation packs as .xlsx, .po, and JSON, aligned with a format report — and formalized how QA communicates.</p>
+        <ul>
+          <li><b>Arabic localization packs:</b> order-management backend plus referral, SMS, and user-management modules — delivered in engineering-ready formats.</li>
+          <li><b>Management reporting:</b> untouched-bugs reports per project, QA bug-analysis dashboards in Excel, weekly and midday status templates that became the team's routine.</li>
+          <li><b>Employee-wellbeing app:</b> full patient-flow and employee-care test suites for a new product line.</li>
+        </ul>
+        <div class="chips"><span class="chip">i18n / l10n</span><span class="chip">gettext .po</span><span class="chip">Excel dashboards</span><span class="chip">Stakeholder reporting</span></div>
+      </div>
+
+      <div class="card phase rv">
+        <div class="when">Mar – May 2026 · Phase 3</div>
+        <h3>API testing and the security hardening programme</h3>
+        <p>Moved below the UI. Built Postman collections for the platform's client, provider, and payment APIs, then ran a security testing programme against them.</p>
+        <ul>
+          <li><b>Security hardening test suites:</b> SQL-injection, auth-bypass, and input-validation collections; a P0 security pack with test sheets for the ministry-facing environment; a Python rate-limit test.</li>
+          <li><b>API security hardening programme:</b> executive deck, management dashboard, tracker, and checklist — QA findings packaged for leadership decisions.</li>
+          <li><b>Unused-API-surface analysis:</b> identified routes not consumed by any client and presented the findings management-ready.</li>
+          <li><b>RBAC model matrix</b> for a regional health-cluster deployment — role-by-permission governance documentation.</li>
+          <li>Payment gateway coverage: Moyasar, Tamara, ClickPay/PayTabs, NPHIES.</li>
+        </ul>
+        <div class="chips"><span class="chip">Postman</span><span class="chip">Security testing</span><span class="chip">SQLi / auth bypass</span><span class="chip">Python</span><span class="chip">RBAC</span></div>
+      </div>
+
+      <div class="card phase rv">
+        <div class="when">Jun – Jul 2026 · Phase 4</div>
+        <h3>Running a national screening programme's delivery cycle</h3>
+        <p>Project-managed the quality side of a national breast-cancer screening platform: discovery, structured trackers, fix-verification cycles, stakeholder-ready reporting, and the documentation that let others follow.</p>
+        <ul>
+          <li><b>Verification cycles 28 → 38:</b> dated bug-fix trackers and verification reports across two testing cycles.</li>
+          <li><b>Clinical documentation (SOAP) module QA:</b> dated defect reports through June, feeding the module's rebuild.</li>
+          <li><b>Wrote the manuals:</b> screening test-cycle guide, evidence-capture guide, pathway-creation user manual, bulk-upload defect documentation, structured test data (valid + invalid sets).</li>
+        </ul>
+        <div class="chips"><span class="chip">MOH / public health</span><span class="chip">Test cycles</span><span class="chip">UAT</span><span class="chip">Technical writing</span></div>
+      </div>
+
+      <div class="card phase rv">
+        <div class="when">Aug 2026 · Phase 5</div>
+        <h3>Analyst, engineer, and quality lead on partner integrations</h3>
+        <p>Now covering three roles at once on pharmacy order-management and logistics integrations — analyzing requirements and authoring the UAT external partners test against, certifying the APIs, and building the automation and AI tooling that outlast manual effort.</p>
+        <ul>
+          <li><b>Integration API certification:</b> client + provider Postman collections authored under his own name, integration guides, UAT scenario documents (carrier reassignment, beneficiary/consumer pickup), and smoke + API test reports.</li>
+          <li><b>Regression package for the rebuilt clinical-documentation module:</b> regression suite, parity matrix, scenario sheets, bug report, and a walkthrough test deck.</li>
+          <li><b>Automation framework:</b> Playwright + pytest with page objects, .env config, trace-on-failure — test cases mapped to Excel IDs so manual suites become automated ones.</li>
+          <li><b>AI tooling:</b> a test-case generator and a Slack bot to accelerate QA workflows.</li>
+        </ul>
+        <div class="chips"><span class="chip">Playwright</span><span class="chip">pytest</span><span class="chip">UAT authorship</span><span class="chip">AI-assisted QA</span><span class="chip">Integration testing</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cases">
+    <span class="seclabel">Case studies</span>
+    <h2>Three problems <span class="grad">nobody assigned him</span></h2>
+    <p class="secintro">Situation, action, result — with the numbers. Each one started outside the job description and ended as owned, delivered work. Details are generalized to respect confidentiality; every outcome is backed by dated records.</p>
+
+    <div class="card case rv">
+      <div class="bigno">01</div>
+      <div class="num">CASE 01 · PRE-RELEASE DEFECT HUNT</div>
+      <h3>The launch that almost shipped broken payments</h3>
+      <div class="sar">
+        <div class="cell"><div class="k">Situation</div><p>A patient-facing mobile app was weeks from public release. Booking and payment — the app's core value path — had passed developer testing. As the newest QA on the team, he owned the pre-release sweep.</p></div>
+        <div class="cell"><div class="k">Action</div><p>Designed scenarios beyond the happy path: zero-priced care packages, freshly created accounts with incomplete profiles, deliberately failed payments. Filed each break as a <b>Highest-priority defect</b> with reproduction steps, screenshots, and screen recordings — then retested every fix the day it landed.</p></div>
+        <div class="cell"><div class="k">Result</div><p>A chain of <b>six Highest-priority payment defects</b> — including bookings that silently vanished after a failed payment — was found, fixed, and verified before a single real patient hit the flow.</p></div>
+      </div>
+      <div class="result"><b>100% of the payment-defect chain verified closed pre-release.</b> The failure mode that would have generated invisible lost bookings — and support calls with no trail — never reached production.</div>
+    </div>
+
+    <div class="card case rv">
+      <div class="bigno">02</div>
+      <div class="num">CASE 02 · SELF-INITIATED SECURITY PROGRAMME</div>
+      <h3>From bug hunter to security-hardening programme</h3>
+      <div class="sar">
+        <div class="cell"><div class="k">Situation</div><p>Platform APIs handling patient data were approaching a ministry-facing deployment. Functional testing was covered; dedicated security testing wasn't anyone's job.</p></div>
+        <div class="cell"><div class="k">Action</div><p>Built SQL-injection, auth-bypass, and input-validation test collections from scratch, wrote a Python rate-limit test, and mapped API routes no client actually consumed. Packaged the findings the way leadership needed them: an <b>executive deck, a management dashboard, a tracker, and a hardening checklist</b>.</p></div>
+        <div class="cell"><div class="k">Result</div><p>Security hardening became a <b>tracked programme with management visibility</b> rather than an ad-hoc concern. Findings were remediated before the deployment, and an RBAC role-by-permission matrix formalized access governance.</p></div>
+      </div>
+      <div class="result"><b>An entry-level hire created the security-testing function.</b> The P0 security pack and checklist are now reusable assets the team runs against every ministry-facing release.</div>
+    </div>
+
+    <div class="card case rv">
+      <div class="bigno">03</div>
+      <div class="num">CASE 03 · END-TO-END CYCLE OWNERSHIP</div>
+      <h3>Running a national screening platform's test cycles</h3>
+      <div class="sar">
+        <div class="cell"><div class="k">Situation</div><p>A national breast-cancer screening platform was in intensive fix cycles, with defects arriving faster than they were being verified and no repeatable process for the cycle itself.</p></div>
+        <div class="cell"><div class="k">Action</div><p>Took ownership of the full defect lifecycle — structured trackers, valid-and-invalid test-data sets, verification <b>cycles 28 through 38</b> — while coordinating fixes across developers, clinical stakeholders, and ministry-side reviewers. Then wrote the test-cycle guide and evidence-capture guide so any tester could replicate the process.</p></div>
+        <div class="cell"><div class="k">Result</div><p>Fix verification became <b>documented, dated, and repeatable</b>. The defect reports fed a module rebuild, and the guides now onboard other testers onto the programme.</p></div>
+      </div>
+      <div class="result"><b>Eleven verification cycles run and documented end to end</b> — the process survives without him, which is the point.</div>
+    </div>
+  </section>
+
+  <section id="craft">
+    <span class="seclabel">The craft</span>
+    <h2>What the work <span class="grad">actually looks like</span></h2>
+    <p class="secintro">Most portfolios claim skills; this one shows the artifacts. A defect report, a test-design sample, and the automation pattern — all drawn from real work, generalized for confidentiality.</p>
+
+    <div class="craftgrid stagger">
+      <div class="card craft rv">
+        <div class="tag">Artifact 01</div>
+        <h3>Anatomy of a defect report</h3>
+        <p class="exp">Structure from the team's bug-reporting standard he authored. A developer should reproduce the bug on the first try — and know why it matters.</p>
+        <div class="ticket">
+          <div class="thead"><span class="ttl">Booking fails at final step with “Expected a string value”</span><span class="sev">HIGHEST · BLOCKER</span></div>
+          <div class="tbody">
+            <div class="fld"><div class="k">Environment</div>Android app v2.4.1 · staging · patient account created same day</div>
+            <div class="fld"><div class="k">Steps to reproduce</div>
+              <ol>
+                <li>Open the app and choose a physician</li>
+                <li>Select video consultation with a valid date/time slot</li>
+                <li>Tap Book Now on the confirmation step</li>
+              </ol>
+            </div>
+            <div class="fld"><div class="k">Expected</div>Appointment created; user redirected to confirmation with a reference ID</div>
+            <div class="fld"><div class="k">Actual</div>Red error banner “Expected a string value”; no appointment created</div>
+            <div class="fld"><div class="k">Evidence</div>Screen recording + screenshot attached · reproduced 3/3 attempts · same failure confirmed on iOS</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card craft rv">
+        <div class="tag">Artifact 02</div>
+        <h3>Test design: beyond the happy path</h3>
+        <p class="exp">Excerpt from a vitals-data upload suite — the valid, boundary, and invalid sets that catch what happy-path testing misses.</p>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Input</th><th>Case type</th><th>Expected behavior</th></tr></thead>
+            <tbody>
+              <tr><td>Blood pressure 120/80</td><td><span class="pill done">Valid</span></td><td>Accepted, stored, shown on timeline</td></tr>
+              <tr><td>Heart rate 0</td><td><span class="pill prog">Boundary</span></td><td>Rejected with a clinical-range message</td></tr>
+              <tr><td>Temperature 45.1 °C</td><td><span class="pill prog">Boundary</span></td><td>Rejected — above survivable range</td></tr>
+              <tr><td>Date of reading in the future</td><td><span class="pill">Invalid</span></td><td>Rejected with a clear field-level error</td></tr>
+              <tr><td>Empty file / wrong template columns</td><td><span class="pill">Invalid</span></td><td>Bulk upload refused with row-level report</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="exp" style="margin-top:12px; margin-bottom:0">Every suite ships in two files — a VALID set that must pass and an INVALID set that must fail — so a regression in either direction is caught.</p>
+      </div>
+
+      <div class="card craft rv" style="grid-column: 1 / -1;">
+        <div class="tag">Artifact 03</div>
+        <h3>The automation pattern</h3>
+        <p class="exp">From the Playwright + pytest framework: page objects keep selectors in one place, test IDs map back to the manual Excel suites, and traces capture every failure.</p>
+        <pre class="code"><span class="c"># pages/booking_page.py — one page object, one source of truth for selectors</span>
+<span class="kw">class</span> BookingPage:
+    <span class="kw">def</span> __init__(self, page):
+        self.page = page
+        self.book_now = page.get_by_role(<span class="s">"button"</span>, name=<span class="s">"Book Now"</span>)
+        self.error_banner = page.locator(<span class="s">"[data-test=error-banner]"</span>)
+
+    <span class="kw">def</span> book_slot(self, physician, slot):
+        self.page.get_by_text(physician).click()
+        self.page.get_by_text(slot).click()
+        self.book_now.click()
+
+<span class="c"># tests/test_booking.py — TC-BOOK-014 maps to row 14 of the manual suite</span>
+<span class="kw">def</span> test_zero_priced_package_completes_booking(booking_page):
+    booking_page.book_slot(<span class="s">"Dr. Example"</span>, <span class="s">"09:00"</span>)
+    expect(booking_page.error_banner).to_be_hidden()   <span class="c"># the bug this guards against shipped once — never again</span></pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="ai">
+    <span class="seclabel">AI leverage</span>
+    <h2>The AI multiplier: <span class="grad">a week of work in minutes</span></h2>
+    <p class="secintro">Nobody asked for this. He rebuilt the department's recurring deliverables — reports, test documentation, trackers, dashboards — as AI-assisted pipelines, improving them iteration by iteration. Claude, Microsoft Copilot, and Gemini Pro are daily working tools, not experiments.</p>
+
+    <div class="card panel rv" style="margin-bottom:16px">
+      <h3>Turnaround on a recurring department deliverable</h3>
+      <div class="sub">Same output owner, same quality bar — higher, in fact</div>
+      <div class="hbars">
+        <div class="hl">Before — manual</div>
+        <div class="track"><div class="fill" style="--w:100%; background: var(--ink-3)"></div></div>
+        <div class="hv">~1 week</div>
+        <div class="hl">After — AI pipeline</div>
+        <div class="track"><div class="fill" style="--w:2%; background: linear-gradient(90deg, var(--brand), var(--brand-2))"></div></div>
+        <div class="hv">&lt;10 min <small>· ≈240× faster</small></div>
+      </div>
+      <div class="legendnote">The freed week goes into verification depth, edge-case coverage, and the next improvement — not into formatting documents.</div>
+    </div>
+
+    <div class="streams stagger">
+      <div class="card stream rv">
+        <div class="tag">Deliverable pipelines</div>
+        <h3>Draft → structure → verify, on rails</h3>
+        <p>Recurring outputs rebuilt as repeatable AI workflows with a human quality gate.</p>
+        <ul>
+          <li>Test-case suites, UAT documents, defect reports, and status reports generated to the team's own standards — then reviewed and signed off by him</li>
+          <li>Consistent formats every cycle; deliverable quality went up, not just speed</li>
+          <li>Localization packs and data transformations scripted end to end</li>
+        </ul>
+      </div>
+      <div class="card stream rv">
+        <div class="tag">Live visibility</div>
+        <h3>Dashboards nobody had to request</h3>
+        <p>Self-initiated performance tracking, maintained and improved as he goes.</p>
+        <ul>
+          <li>Live QA dashboards: defect analysis, untouched-bugs aging, cycle progress</li>
+          <li>Personal bug dashboard and per-project trackers management actually reads</li>
+          <li>Each iteration ships a little better than the last — no ticket, no ask</li>
+        </ul>
+      </div>
+      <div class="card stream rv" style="grid-column: 1 / -1;">
+        <div class="tag">The toolbelt</div>
+        <h3>Multi-model, tool-agnostic, production-minded</h3>
+        <p>Daily driver across <b>Claude</b>, <b>Microsoft Copilot</b>, and <b>Gemini Pro</b> — matched to the task, not the hype. On top of them he's built his own tooling: an AI test-case generator, a Slack workflow bot, and prompt patterns the team reuses. The skill isn't using AI — it's knowing which 10 minutes still need a human, and making sure they get one.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <span class="seclabel">Process design</span>
+    <h2>Processes built for the team, <span class="grad">not just tasks done</span></h2>
+    <p class="secintro">The strongest thread in this body of work: turning one-off effort into standards other people use — all of them in active use by the QA team today.</p>
+    <div class="streams stagger">
+      <div class="card stream rv">
+        <div class="tag">Standards</div>
+        <h3>Bug reporting &amp; test-case standards</h3>
+        <p>Authored the team's canonical formats.</p>
+        <ul>
+          <li>The team's official bug-reporting standard — structure, severity, evidence requirements</li>
+          <li>Test-case template and sprint test-case master workbook</li>
+          <li>The UAT sheet format now required before any story moves to release</li>
+        </ul>
+      </div>
+      <div class="card stream rv">
+        <div class="tag">Reporting</div>
+        <h3>QA visibility for management</h3>
+        <p>Recurring reports that made QA output measurable.</p>
+        <ul>
+          <li>QA bug-analysis dashboards (Excel), untouched-bugs reports per project</li>
+          <li>Weekly / midday status templates and a personal bug dashboard</li>
+          <li>Proactive UX-enhancement recommendations for the hospital information system</li>
+        </ul>
+      </div>
+      <div class="card stream rv">
+        <div class="tag">Enablement</div>
+        <h3>Manuals, handbooks &amp; assessments</h3>
+        <p>Documentation that lets clients and new testers work without him.</p>
+        <ul>
+          <li>Client and integration user manuals, plus a tester handbook</li>
+          <li>Demo guides for prescription and pickup flows</li>
+          <li>QA skills assessments with answer keys and placement guide</li>
+        </ul>
+      </div>
+      <div class="card stream rv">
+        <div class="tag">Automation</div>
+        <h3>A framework that scales the team</h3>
+        <p>Infrastructure so manual suites become repeatable runs.</p>
+        <ul>
+          <li>Playwright + pytest framework with page-object structure</li>
+          <li>Excel-to-automation mapping (validations exported to JSON for assertions)</li>
+          <li>AI test-case generator + Slack bot prototypes</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="record">
+    <span class="seclabel">By the numbers</span>
+    <h2>A measurable <span class="grad">record</span></h2>
+    <p class="secintro">Eleven months of tracked delivery, October 2025 through August 2026 — breadth across the platform, and a body of authored work that outlasts any single release.</p>
+
+    <div class="panelgrid stagger">
+      <div class="card panel rv">
+        <h3>Contribution across the platform</h3>
+        <div class="sub">All 212 work items participated in, by product</div>
+        <div class="hbars" id="proj"></div>
+        <div class="legendnote">Six products of one national digital-health platform, from hospital core to patient mobile apps.</div>
+      </div>
+      <div class="card panel rv">
+        <h3>Work authored &amp; adopted</h3>
+        <div class="sub">Artifacts produced in eleven months, by kind</div>
+        <div class="hbars" id="authored"></div>
+        <div class="legendnote">Every item is a real, dated artifact in team use — not a claim.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px" class="card tablewrap rv">
+      <table>
+        <thead><tr><th>Finding</th><th>Why it mattered</th><th>Outcome</th></tr></thead>
+        <tbody>
+          <tr><td>Chain of payment-flow defects in a patient mobile app — zero-amount packages, validation blocks, bookings lost after failed payment</td><td>Caught at highest priority before public release; each would have blocked real patients from booking care</td><td><span class="pill done">Fixed &amp; verified</span></td></tr>
+          <tr><td>Clinical dashboard integrity failure — incorrect overdue counts and phantom records across five widgets</td><td>Clinicians would have acted on wrong caseload data</td><td><span class="pill prog">Escalated &amp; tracked</span></td></tr>
+          <tr><td>Arabic localization defects, including wrong onboarding messaging after sign-up</td><td>First impression for every Arabic-speaking user of the app</td><td><span class="pill done">Fixed &amp; verified</span></td></tr>
+          <tr><td>Security findings from SQL-injection, auth-bypass, and rate-limit test suites</td><td>Hardened patient-data APIs before a ministry-facing deployment</td><td><span class="pill done">Programme adopted</span></td></tr>
+          <tr><td>Verification sweeps across hospital-system and case-management releases, paired directly with backend engineers</td><td>Kept release trains moving with same-day retests</td><td><span class="pill done">Completed</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      A discipline of proof runs through all of it: every defect filed with reproduction steps, expected vs. actual behavior, and captured evidence — <b>368 timestamped screenshots</b>, screen recordings, structured test-data sets, and dated verification reports.
+    </div>
+  </section>
+
+  <section id="profile">
+    <span class="seclabel">Profile</span>
+    <h2>Skills matrix, education, <span class="grad">credentials</span></h2>
+    <p class="secintro">A matrix, not a list — because breadth is the point. Levels are honest: Expert means used daily under deadline pressure; Proficient means independent, production work; Developing means actively building, with real artifacts already shipped.</p>
+
+    <div class="card tablewrap rv" style="margin-bottom:16px">
+      <table>
+        <thead><tr><th>Skill area</th><th>Level</th><th>Backed by</th></tr></thead>
+        <tbody>
+          <tr><td><b>Manual &amp; exploratory testing</b></td><td><span class="lvl e">Expert</span></td><td>138 tracked defects; mobile (Android/iOS) and web; 11 months daily practice</td></tr>
+          <tr><td><b>Defect reporting &amp; verification</b></td><td><span class="lvl e">Expert</span></td><td>Authored the team standard; 287 verification comments; 87% verified-closure rate</td></tr>
+          <tr><td><b>Test design &amp; UAT authorship</b></td><td><span class="lvl e">Expert</span></td><td>40+ suites; UAT documents external partners test against; valid/invalid data sets</td></tr>
+          <tr><td><b>Stakeholder communication &amp; knowledge translation</b></td><td><span class="lvl e">Expert</span></td><td>One system explained four ways: exec decks, client manuals, tester handbooks, demo guides — for engineering, clinical, business, and external audiences</td></tr>
+          <tr><td><b>AI process automation (Claude, MS Copilot, Gemini Pro)</b></td><td><span class="lvl e">Expert</span></td><td>Week-long department deliverables reduced to under 10 minutes; live dashboards; AI test-case generator and Slack bot built on top — all self-initiated</td></tr>
+          <tr><td><b>Business analysis (BRD → UAT, requirements)</b></td><td><span class="lvl p">Proficient</span></td><td>UAT authored from 5+ business requirement documents; RBAC role-permission model; UX recommendations adopted into planning</td></tr>
+          <tr><td><b>API testing (Postman, REST)</b></td><td><span class="lvl p">Proficient</span></td><td>25+ collections across client, provider, and payment APIs; smoke + API test reports</td></tr>
+          <tr><td><b>Security testing</b></td><td><span class="lvl p">Proficient</span></td><td>SQLi / auth-bypass / rate-limit suites; hardening programme adopted by management</td></tr>
+          <tr><td><b>Delivery / programme coordination</b></td><td><span class="lvl p">Proficient</span></td><td>Security programme with exec reporting; 11 verification cycles run end to end; team reporting cadence</td></tr>
+          <tr><td><b>Localization QA (Arabic/English)</b></td><td><span class="lvl p">Proficient</span></td><td>Translation packs in .xlsx / .po / JSON; localization defects found and verified</td></tr>
+          <tr><td><b>Reporting &amp; QA analytics (Excel, Jira/JQL)</b></td><td><span class="lvl p">Proficient</span></td><td>Bug-analysis dashboards; untouched-bugs reports; management status cadence</td></tr>
+          <tr><td><b>Test automation &amp; scripting (Playwright, pytest, Python)</b></td><td><span class="lvl g">Developing</span></td><td>Working framework with page objects, traces, Excel-mapped test IDs; AI tooling prototypes shipped</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="twocol stagger">
+      <div class="card plain rv">
+        <dl>
+          <dt>Healthcare domain</dt>
+          <dd>Hospital information systems · home healthcare · population health &amp; case management · pharmacy / order management · insurance integration · national screening programs</dd>
+          <dt>Education</dt>
+          <dd><b>B.Sc. Health Informatics</b> — Saudi Electronic University, 2021–2024<br>Coursework in Chemical Engineering — Imam Mohammad Ibn Saud Islamic University, 2017–2020</dd>
+          <dt>Professional classifications</dt>
+          <dd><b>Specialist — Health Informatics</b> — Saudi Commission for Health Specialties (2026)<br><b>Health Information Systems Specialist</b> — Saudi Council of Engineers (2026)</dd>
+        </dl>
+      </div>
+      <div class="card plain rv">
+        <dl>
+          <dt>Certifications (14 total — highlights)</dt>
+          <dd>McKinsey.org Forward Program — McKinsey &amp; Company<br>ITIL 4 Service Management — Tuwaiq Academy<br>Agile Testing Methodology Foundation — Tuwaiq Academy<br>Six Sigma White Belt — CSSC · AWS Solutions Architect — Tuwaiq Academy<br>ISTQB Foundation — in preparation (31 practice papers completed)</dd>
+          <dt>Earlier experience</dt>
+          <dd>Graduate Development Program — Halal Products Development Co. (2025): led an AI-chatbot project for certification governance, endorsed by the CEO<br>Health Informatics Intern — Security Forces Hospital (2025): EMR operations</dd>
+          <dt>Community &amp; volunteering</dt>
+          <dd>Member, GOVI (digital-data governance) · Member, InformaTalents (health informatics)<br>King Khaled Eye Hospital (data entry, 2024) · King Faisal Specialist Hospital (registration, 2024)</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Naif Alkhamis · Work portfolio · compiled August 2026.<br>
+    All metrics are drawn from project tracking records and dated work products; figures reflect October 2025 – August 2026. Details generalized to respect confidentiality.
+  </footer>
+</div>
+
+<div id="tip" role="presentation"></div>
+
+<script>
+  const projects = [
+    ["Hospital system", 76, "var(--s1)"], ["Home healthcare", 63, "var(--s2)"], ["Population health", 51, "var(--s3)"],
+    ["Logistics platform", 19, "var(--s4)"], ["QA tasks", 2, "var(--s5)"], ["Medical orders", 1, "var(--s6)"]
+  ];
+  const authored = [
+    ["Test-case suites", 40, "var(--brand)"], ["API collections", 25, "var(--brand-2)"],
+    ["UAT & user manuals", 10, "var(--s3)"], ["Team processes & standards", 8, "var(--s4)"],
+    ["AI tools", 2, "var(--s5)"]
+  ];
+
+  const tip = document.getElementById("tip");
+  function bindTip(el, text) {
+    el.addEventListener("mousemove", e => {
+      tip.textContent = text; tip.style.display = "block";
+      tip.style.left = Math.min(e.clientX + 12, window.innerWidth - tip.offsetWidth - 8) + "px";
+      tip.style.top = (e.clientY - 36) + "px";
+    });
+    el.addEventListener("mouseleave", () => tip.style.display = "none");
+  }
+  function hbars(id, rows, unit, total) {
+    const host = document.getElementById(id);
+    const max = Math.max(...rows.map(r => r[1]));
+    rows.forEach(([label, v, color]) => {
+      const l = document.createElement("div"); l.className = "hl"; l.textContent = label;
+      const t = document.createElement("div"); t.className = "track";
+      const f = document.createElement("div"); f.className = "fill";
+      f.style.setProperty("--w", Math.max(1.5, v / max * 100) + "%");
+      f.style.background = color;
+      t.appendChild(f);
+      const n = document.createElement("div"); n.className = "hv";
+      n.innerHTML = total ? `${v} <small>· ${Math.round(v / total * 100)}%</small>` : `${v}`;
+      bindTip(t, total ? `${label}: ${v} ${unit} (${Math.round(v / total * 100)}%)` : `${label}: ${v} ${unit}`);
+      host.append(l, t, n);
+    });
+  }
+  hbars("proj", projects, "work items", 212);
+  hbars("authored", authored, "artifacts");
+
+  // scroll progress bar
+  const prog = document.getElementById("progress");
+  addEventListener("scroll", () => {
+    const h = document.documentElement;
+    prog.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + "%";
+  }, { passive: true });
+
+  // count-up + scroll reveal (skipped under reduced motion)
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduce && "IntersectionObserver" in window) {
+    document.querySelectorAll("[data-count]").forEach(el => {
+      const target = parseInt(el.dataset.count, 10);
+      let started = false;
+      new IntersectionObserver((entries, obs) => {
+        if (entries[0].isIntersecting && !started) {
+          started = true; obs.disconnect();
+          const t0 = performance.now(), dur = 1100;
+          (function tick(now) {
+            const p = Math.min(1, (now - t0) / dur);
+            el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+            if (p < 1) requestAnimationFrame(tick);
+          })(t0);
+        }
+      }, { threshold: 0.4 }).observe(el);
+    });
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add("on"); ro.unobserve(en.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll(".rv").forEach(el => ro.observe(el));
+  } else {
+    document.querySelectorAll(".rv").forEach(el => el.classList.add("on"));
+  }
+</script>
+</body>
+</html>
